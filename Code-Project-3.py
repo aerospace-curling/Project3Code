@@ -156,7 +156,7 @@ plt.title("Inverted Binary Threshold")
 plt.axis('off')
 plt.show()
 
-#findCountours is used with the blurred threshold defined previously, RETR_EXTERNAL to find the external contours, and CHAIN_APPROX_SIMPLE to store all contour points 
+#findCountours is used with the inverted and blurred threshold, RETR_EXTERNAL to find the external contours, and CHAIN_APPROX_SIMPLE to store all contour points 
 contours, hierarchy = cv2.findContours(threshold_inverted,cv2.RETR_EXTERNAL,cv2.CHAIN_APPROX_SIMPLE)
 
 #a minimum area was added to filter out small contours
@@ -191,6 +191,31 @@ plt.show()
         
 
 
+
+#starting the masking steps
+#first the mask size was defined to be the same as the grayscale image through the use of np.zeros_like
+mask = np.zeros_like(gray_image)
+#drawing the contour and filling it with white completely
+cv2.drawContours(mask, [overall_largest_contour], -1, 255, thickness=cv2.FILLED)
+#this line uses the mask to keep only the PCB pixels from the original image and turn everything else black
+extracted_pcb = cv2.bitwise_and(image, image, mask=mask)
+
+#creating a plot to show the results
+plt.figure()
+plt.imshow(cv2.cvtColor(extracted_pcb, cv2.COLOR_BGR2RGB))
+plt.title("Extracted PCB")
+plt.axis("off")
+plt.show()
+
+#given that the image for comparison was rotated, the extracted PCB can be rotated
+rotated_pcb = cv2.rotate(extracted_pcb, cv2.ROTATE_90_CLOCKWISE)
+
+#creating a plot to show the rotated version
+plt.figure()
+plt.imshow(cv2.cvtColor(rotated_pcb, cv2.COLOR_BGR2RGB))
+plt.title("Extracted PCB (Rotated)")
+plt.axis("off")
+plt.show()
 
 
 
