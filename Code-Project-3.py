@@ -1,4 +1,4 @@
-#AER 850 Project 3
+##AER 850 Project 3
 #EMILY PEELAR- 501169755
 
 
@@ -8,7 +8,8 @@ import cv2
 import numpy as np
 
 #importing the image to be used through the OpenCV library
-image = cv2.imread(r"Project 3 Data/Project 3 Data/motherboard_image.JPEG")
+image = cv2.imread(r"C:/Projects/Project3/Project 3 Data/Project 3 Data/motherboard_image.JPEG")
+
 
 
 #importing the library to display plots
@@ -96,3 +97,18 @@ plt.imshow(cv2.cvtColor(harris_copied, cv2.COLOR_BGR2RGB))
 plt.title("Harris Corner Detection with a Maximum value of 1%")
 plt.axis("off")
 plt.show()
+
+#now attempting a harris with a maximum value of 0.05
+#marking the corners with red dots with 5% of the maximum values
+#the image is copied so that it can be modified with indicators for the corners
+harris_copied_five = image.copy()
+harris_copied_five[dilation_harris > 0.05 * dilation_harris.max()] = [0, 0, 255]
+
+#plotting the harris method and corners detected
+plt.figure()
+#the image colour channels were swapped for plotting
+plt.imshow(cv2.cvtColor(harris_copied_five, cv2.COLOR_BGR2RGB))
+plt.title("Harris Corner Detection with a Maximum value of 5%")
+plt.axis("off")
+plt.show()
+
