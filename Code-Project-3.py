@@ -7,6 +7,11 @@ import cv2
 #importing the numpy library
 import numpy as np
 
+
+
+#Step 1: Object Masking
+
+
 #importing the image to be used through the OpenCV library
 image = cv2.imread(r"C:/Projects/Project3/Project 3 Data/Project 3 Data/motherboard_image.JPEG")
 
@@ -71,10 +76,7 @@ plt.imshow(edges, cmap='gray')
 plt.title("Image with Edges Defined with Canny and blurred")
 plt.axis('off')
 plt.show()
-
-
-
-
+2
 
 
 
@@ -139,14 +141,6 @@ plt.show()
 
 
 
-
-
-
-
-
-
-
-
 #an inverted threshold was added being that the original threshold was just picking up the edge of the desk
 _, threshold_inverted = cv2.threshold(blur, 120, 255, cv2.THRESH_BINARY_INV)
 #plotting with the inverted threshold
@@ -197,6 +191,15 @@ plt.show()
 mask = np.zeros_like(gray_image)
 #drawing the contour and filling it with white completely
 cv2.drawContours(mask, [overall_largest_contour], -1, 255, thickness=cv2.FILLED)
+
+#adding a plot for the Binary Mask of the PCB
+plt.figure()
+plt.imshow(mask, cmap='gray')
+plt.title("Binary Mask of PCB")
+plt.axis("off")
+plt.show()
+
+
 #this line uses the mask to keep only the PCB pixels from the original image and turn everything else black
 extracted_pcb = cv2.bitwise_and(image, image, mask=mask)
 
@@ -216,6 +219,8 @@ plt.imshow(cv2.cvtColor(rotated_pcb, cv2.COLOR_BGR2RGB))
 plt.title("Extracted PCB (Rotated)")
 plt.axis("off")
 plt.show()
+
+
 
 
 
