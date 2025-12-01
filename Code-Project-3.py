@@ -96,7 +96,7 @@ harris_copied[dilation_harris > 0.01 * dilation_harris.max()] = [0, 0, 255]
 plt.figure()
 #the image colour channels were swapped for plotting
 plt.imshow(cv2.cvtColor(harris_copied, cv2.COLOR_BGR2RGB))
-plt.title("Harris Corner Detection with a Maximum value of 1%")
+plt.title("Harris Corner Detection 1% Response Threshold")
 plt.axis("off")
 plt.show()
 
@@ -110,7 +110,7 @@ harris_copied_five[dilation_harris > 0.05 * dilation_harris.max()] = [0, 0, 255]
 plt.figure()
 #the image colour channels were swapped for plotting
 plt.imshow(cv2.cvtColor(harris_copied_five, cv2.COLOR_BGR2RGB))
-plt.title("Harris Corner Detection with a Maximum value of 5%")
+plt.title("Harris Corner Detection 5% Response Threshold")
 plt.axis("off")
 plt.show()
 
